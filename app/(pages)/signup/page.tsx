@@ -1,3 +1,4 @@
+import Button from '@/app/components/ui/Button'
 import React from 'react'
 
 export const LogoSVG = () => {
@@ -49,7 +50,7 @@ function SignUp() {
                         <InputEmail />
                         <InputPassword />
                     </div>
-                    <button className='hover:bg-c300 transition-colors bg-c400 p-4 rounded-full text-c950 font-bold text-14'>Sign Up</button>
+                    <Button>Sign Up</Button>
                 </form>
             </article>
         </main>
