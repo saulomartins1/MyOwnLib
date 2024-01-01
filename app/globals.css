@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --c50: #fbfee7;
+    --c100: #f5fccb;
+    --c200: #eaf99d;
+    --c300: #d8f264;
+    --c400: #c0e52a;
+    --c500: #a5cc16;
+    --c600: #80a30d;
+    --c700: #617c0f;
+    --c800: #4d6212;
+    --c900: #415314;
+    --c950: #212e05;
+
+    --dark1: #080808;
+    --dark2: #121212;
+    --dark3: #151515;
+    --text: #E8E8E8;
+    --text_opacity: #7F7F7F;
+}
+
+body {
+    color: var(--text);
+    background-color: var(--dark1);
+}
