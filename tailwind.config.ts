@@ -24,6 +24,7 @@ const config: Config = {
       dark2: 'var(--dark2)',
       dark3: 'var(--dark3)',
       text: 'var(--text)',
+      text2: 'var(--text2)',
       text_opacity: 'var(--text_opacity)',
     },
     fontSize: {
