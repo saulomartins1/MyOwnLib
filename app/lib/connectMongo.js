@@ -5,12 +5,12 @@ const connectDB = async () => {
 
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-            userNewUrlParser: true,
+            useNewUrlParser: true,
             useUnifiedTopology: true,
         })
         throw new Error("Connection to mongoose success");
     } catch (error) {
-        throw new Error("Connection to mongoose fail");
+        throw new Error("Connection to mongoose fail", error.message);
     }
 }
 
