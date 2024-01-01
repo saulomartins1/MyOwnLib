@@ -14,7 +14,7 @@ function SignUp() {
 
     return (
         <main className='h-screen flex flex-col items-center justify-center'>
-            <article className='flex flex-col items-center gap-8'>
+            <article className='animate-login flex flex-col items-center gap-8'>
                 <div className='flex flex-col items-center'>
                     <NavLink href='/'>
                         <LogoSVG />

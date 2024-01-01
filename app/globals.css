@@ -29,6 +29,25 @@
     }
 }
 
+@layer utilities {
+    @keyframes login {
+
+        0% {
+            opacity: 0;
+            transform: translateY(-25%);
+        }
+
+        100% {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .animate-login {
+        animation: login .8s ease forwards;
+    }
+}
+
 body {
     color: var(--text);
     background-color: var(--dark1);
