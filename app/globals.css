@@ -22,6 +22,12 @@
     --text_opacity: #7F7F7F;
 }
 
+@layer components {
+    .borderCard {
+        @apply border-[1px] border-[#202020]
+    }
+}
+
 body {
     color: var(--text);
     background-color: var(--dark1);
