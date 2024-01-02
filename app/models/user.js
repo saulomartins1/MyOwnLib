@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: false,
+            min: 8,
         },
         books: [Number],
     }, { timestamp: true }
