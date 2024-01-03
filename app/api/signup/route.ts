@@ -22,6 +22,6 @@ export const POST = async (request: any) => {
         await newUser.save();
         return new NextResponse("User successfully registered!", { status: 200 })
     } catch (error: any) {
-        return new NextResponse(error, { status: 500 })
+        return new NextResponse("Internal error, try again later!", { status: 500 })
     }
 }
