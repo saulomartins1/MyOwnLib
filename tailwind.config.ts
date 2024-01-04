@@ -23,6 +23,7 @@ const config: Config = {
       dark1: 'var(--dark1)',
       dark2: 'var(--dark2)',
       dark3: 'var(--dark3)',
+      borders: 'var(--borders)',
       text: 'var(--text)',
       text2: 'var(--text2)',
       text_opacity: 'var(--text_opacity)',
