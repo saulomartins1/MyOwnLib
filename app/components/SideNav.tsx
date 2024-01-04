@@ -38,7 +38,7 @@ async function SideNav() {
             <nav className="flex flex-col">
                 <NavLink className="flex gap-3 items-center p-6 hover:bg-dark3 font-bold" href='/#onfire'><IconOnFire />3 days on fire</NavLink>
                 <NavLink className="flex gap-3 items-center p-6 hover:bg-dark3 font-bold" href='/'><IconHome />Home</NavLink>
-                <NavLink className="flex gap-3 items-center p-6 hover:bg-dark3 font-bold" href='/#mybooks'><IconHome />My books</NavLink>
+                <NavLink className="flex gap-3 items-center p-6 hover:bg-dark3 font-bold" href='/my-books'><IconHome />My books</NavLink>
             </nav>
         </aside >
     )
