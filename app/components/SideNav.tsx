@@ -24,7 +24,7 @@ async function SideNav() {
     const session = await auth();
 
     return (
-        <aside className='bg-dark2 h-screen w-[256px] flex flex-col gap-4'>
+        <aside className='flex-shrink-0 bg-dark2 w-[256px] flex flex-col gap-4 border-r-[1px] border-borders'>
             {!session?.user ?
                 <NavLink className='flex gap-3 items-center p-6 hover:bg-dark3 font-bold border-b-2 border-borders' href="/signup">
                     <IconAccount /> Sign Up
