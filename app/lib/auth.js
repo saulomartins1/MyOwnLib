@@ -4,8 +4,10 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import connectDB from "./connectMongo"
 import User from '@/app/models/user'
 import bcrypt from 'bcrypt';
+import { authConfig } from '@/app/lib/auth.config'
 
 export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
+    ...authConfig,
     providers: [
         Google({
             clientId: process.env.GOOGLE_ID,
@@ -48,6 +50,7 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                 }
             }
             return true;
-        }
-    }
+        },
+        ...authConfig.callbacks,
+    },
 })

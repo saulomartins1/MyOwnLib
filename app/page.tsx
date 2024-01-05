@@ -10,7 +10,6 @@ async function Home() {
    return (
       <>
          <div className='flex gap-4'>
-            {/* @ts-expect-error Server Component */}
             <SideNav />
             <div className='flex-grow'>
                <header className='bg-[blue] flex items-center justify-center gap-8'> <nav>
