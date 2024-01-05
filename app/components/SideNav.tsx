@@ -1,6 +1,7 @@
 import React from 'react'
 import NavLink from 'next/link'
 import { auth } from '@/app/lib/auth'
+import { handleSignOut } from '../lib/actions'
 
 
 const IconAccount = () => {
@@ -25,15 +26,22 @@ async function SideNav() {
     return (
         <aside className='bg-dark2 h-screen w-[256px] flex flex-col gap-4'>
             {!session?.user ?
-                < NavLink className='flex gap-3 items-center p-6 hover:bg-dark3 font-bold border-b-2 border-borders' href="/signup">
+                <NavLink className='flex gap-3 items-center p-6 hover:bg-dark3 font-bold border-b-2 border-borders' href="/signup">
                     <IconAccount /> Sign Up
                 </NavLink>
                 :
-                <NavLink
-                    className='flex gap-3 items-center p-6 hover:bg-dark3 font-bold border-b-2 border-borders'
-                    href="/signup">
-                    <IconAccount /> <span className="truncate">{session?.user.email}</span>
-                </NavLink>
+                <>
+                    <NavLink
+                        className='flex gap-3 items-center p-6 hover:bg-dark3 font-bold border-b-2 border-borders'
+                        href="/signup">
+                        <IconAccount /> <span className="truncate">{session?.user.email}</span>
+                    </NavLink>
+                    <form action={handleSignOut} className="inline">
+                        <button className='hover:bg-dark3 transition-colors p-4 rounded-full text-c100 font-bold text-14'>
+                            Sign Out
+                        </button>
+                    </form>
+                </>
             }
             <nav className="flex flex-col">
                 <NavLink className="flex gap-3 items-center p-6 hover:bg-dark3 font-bold" href='/#onfire'><IconOnFire />3 days on fire</NavLink>

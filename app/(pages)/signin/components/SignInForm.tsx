@@ -24,6 +24,7 @@ function SignInForm() {
             if (response.status === 200) {
                 setError('');
                 router.push('/');
+                router.refresh(); //Handle first time sign in (displayed session info)
             } else {
                 const ErrorResponse = await response.text();
                 setError(`${ErrorResponse}`);
