@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import Button from './ui/Button'
+import { I_booksDB } from '@/app/data/books'
 
 const IconBookPages = () => {
     return <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -13,17 +14,30 @@ const IconMoreInfo = () => {
     </svg>
 }
 
-function BookCard() {
+//Objetivo de hoje:
+/* 
+- Finalizar a página da home em relação aos CARDS dos livros;
+- Como lidar com a barra de pesquisa e os filtros;
+- Ver como vai ser manipulada a questão do modal de informações com o restante das infos do livro;
+- 48px de altura no botão de get book;
+
+//----- Depois dos arranjos acima, descobrir como adicionar o livro em "My-books" = na database do usuário;
+*/
+
+function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB) {
     return (
         <article className='flex flex-col justify-between bg-dark2 p-4 w-[232px] h-[180px] rounded-lg border-[1px] border-borders'>
             <div className='flex items-center gap-3'>
                 <div className='flex-shrink-0 w-12 h-16 bg-dark1 border-borders border-[1px] rounded-md overflow-hidden'>
-                    <Image src="/booksCover/neuromancer.jpg" width="48" height="64" alt="Cover of {booksName}" />
+                    <Image src={coverUrl} width="48" height="64" alt="Cover of {booksName}" />
                 </div>
                 <div className='flex flex-col py-1 truncate'>
-                    <h2 className='font-bold text-14 truncate'>How to Win Friends and Influence People</h2>
-                    <p className='text-c100 text-12'>Dale Carnegie</p>
-                    <div className='mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'><IconBookPages />621</div>
+                    <h2 className='font-bold text-14 truncate'>{title}</h2>
+                    <p className='text-c100 text-12'>{author}</p>
+                    <div className='flex gap-1'>
+                        <span className='mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'>{release}</span>
+                        <span className=' mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'><IconBookPages />{pages}</span>
+                    </div>
                 </div>
             </div>
             <div className='flex items-center justify-between'>
