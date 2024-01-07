@@ -20,7 +20,7 @@ export const booksDB = [
         pages: 280,
         pdfPath: "/pdfs/how_to_win_friends_and_influence_people.pdf",
         coverUrl: "/pdfs/how_to_win_friends_and_influence_people.jpg",
-        synopsis: "A classic self-help book offering practical advice on building positive relationships and influencing others.",
+        synopsis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut rhoncus dolor. Morbi condimentum, nisi quis aliquet cursus, tortor purus sagittis elit, id pulvinar magna mauris at ipsum. Quisque mattis lacus eu dui pharetra laoreet. Ut a diam nunc. Donec non purus ut erat porta consectetur. Nam convallis venenatis lacus quis dictum. Duis mi risus, tristique non lacus vel, consequat elementum quam. In diam nisi, porta vel dolor et orci aliquam.",
         genre: "Self-Help",
         rating: 4.6,
     },

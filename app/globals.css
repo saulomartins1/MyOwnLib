@@ -32,7 +32,6 @@
 
 @layer utilities {
     @keyframes login {
-
         0% {
             opacity: 0;
             transform: translateY(-25%);
@@ -44,12 +43,56 @@
         }
     }
 
+    @keyframes logout {
+        0% {
+            opacity: 1;
+            transform: none;
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-25%);
+        }
+    }
+
     .animate-login {
         animation: login .8s ease forwards;
+    }
+
+    .animate-logout {
+        animation: logout .8s ease forwards;
     }
 }
 
 body {
     color: var(--text);
     background-color: var(--dark1);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6666;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--c400);
+}
+
+.boxShadowSynopsis {
+    -webkit-box-shadow: inset 0px 6px 17px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 6px 17px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 6px 17px -8px rgba(0, 0, 0, 0.75);
+}
+
+p {
+    line-height: 160%;
 }
