@@ -1,14 +1,17 @@
+import React from "react";
+
 export interface I_booksDB {
-    id: number;
-    title: string;
-    author: string;
-    release: string;
-    pages: number;
-    pdfPath: string;
+    children?: React.ReactNode;
+    id?: number;
+    title?: string;
+    author?: string;
+    release?: string;
+    pages?: number;
+    pdfPath?: string;
     coverUrl: string;
-    synopsis: string;
-    genre: string;
-    rating: number;
+    synopsis?: string;
+    genre?: string;
+    rating?: number;
 }
 
 export const booksDB = [

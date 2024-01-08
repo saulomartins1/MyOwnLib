@@ -27,7 +27,9 @@ function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, synops
                 </div>
             </div>
             <div className='flex items-center justify-between'>
-                <BtnModalBookInfo id={id} title={title} author={author} release={release} pages={pages} pdfPath={pdfPath} coverUrl={coverUrl} synopsis={synopsis} genre={genre} rating={rating} />
+                <div>
+                    <BtnModalBookInfo id={id} title={title} author={author} release={release} pages={pages} pdfPath={pdfPath} coverUrl={coverUrl} synopsis={synopsis} genre={genre} rating={rating} />
+                </div>
                 <Button>Get book</Button>
             </div>
         </article>
