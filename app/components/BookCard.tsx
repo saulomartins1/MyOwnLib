@@ -10,14 +10,6 @@ export const IconBookPages = () => {
     </svg>
 }
 
-//Objetivo de hoje:
-/* 
-- Como lidar com a barra de pesquisa e os filtros;
-- 48px de altura no botão de get book;
-
-//----- Depois dos arranjos acima, descobrir como adicionar o livro em "My-books" = na database do usuário;
-*/
-
 function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB) {
     return (
         <article className='flex flex-col justify-between bg-dark2 p-4 w-[232px] h-[180px] rounded-lg border-[1px] border-borders'>

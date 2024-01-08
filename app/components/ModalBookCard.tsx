@@ -17,7 +17,7 @@ const IconRating = () => {
     </svg>
 }
 
-function BtnModalBookInfo({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB) {
+export function BtnModalBookInfo({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB) {
     const [modal, setModal] = React.useState(false);
     const [modalClass, setModalClass] = React.useState<'animate-login' | 'animate-logout'>('animate-login');
 

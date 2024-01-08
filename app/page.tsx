@@ -1,7 +1,7 @@
 import React from 'react'
 import BookCard from './components/BookCard'
 import SideNav from './components/SideNav'
-import { InputSearchBook, SearchBook_Filter, SearchBook_Grid } from './components/ui/Input'
+import { SearchBar } from './components/SearchBar'
 import { booksDB } from '@/app/data/books'
 
 
@@ -15,9 +15,7 @@ async function Home() {
             <div className='flex-grow'>
                <header className='p-4 bg-dark2 flex items-center justify-center gap-8 border-borders border-[1px] rounded-bl-lg'>
                   <nav className='flex text-text2'>
-                     <InputSearchBook />
-                     <SearchBook_Filter />
-                     <SearchBook_Grid />
+                     <SearchBar />
                   </nav>
                </header>
                <main className='flex flex-wrap gap-4 py-4 pb-[100px] overflow-y-auto max-h-screen'>

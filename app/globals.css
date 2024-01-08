@@ -69,6 +69,13 @@ body {
     background-color: var(--dark1);
 }
 
+h1,
+h2,
+h3,
+h4 {
+    color: var(--text);
+}
+
 ::-webkit-scrollbar {
     width: 4px;
 }
