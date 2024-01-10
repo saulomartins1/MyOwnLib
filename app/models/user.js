@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const bookSchema = new mongoose.Schema({
+    id: { type: Number, required: true },
+    pagesRead: { type: Number, default: 0 }
+});
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -10,7 +15,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         min: 3,
     },
-    books: [Number],
+    books: [bookSchema],
 }, {
     timestamps: true
 });

@@ -37,7 +37,7 @@ function SignUpForm() {
                 body: JSON.stringify({ email, password })
             });
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 setError('');
                 router.push('/signin');
             } else {

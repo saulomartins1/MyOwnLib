@@ -1,12 +1,10 @@
 'use client'
 import Button from '@/app/components/ui/Button'
 import { InputEmail, InputPassword } from '@/app/components/ui/Input'
-import { useRouter } from 'next/navigation';
 import React from 'react'
 
 function SignInForm() {
     const [error, setError] = React.useState('');
-    const router = useRouter()
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -23,8 +21,7 @@ function SignInForm() {
 
             if (response.status === 200) {
                 setError('');
-                router.push('/');
-                router.refresh(); //Handle first time sign in (displayed session info)
+                window.location.href = "/" //First time when signin fix "undefined" session
             } else {
                 const ErrorResponse = await response.text();
                 setError(`${ErrorResponse}`);

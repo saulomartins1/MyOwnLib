@@ -16,12 +16,13 @@ export const POST = async (request: any) => {
 
         const newUser = new User({
             email,
-            password: hashedPassword,
+            password: hashedPassword
         });
 
         await newUser.save();
-        return new NextResponse("User successfully registered!", { status: 200 })
+        return new NextResponse("User successfully registered!", { status: 201 })
     } catch (error: any) {
+        console.error("signup route" + error.error);
         return new NextResponse("Internal error, try again later!", { status: 500 })
     }
 }
