@@ -1,10 +1,10 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
-import connectDB from "./connectMongo"
-import User from '@/app/models/user'
+import connectDB from "@/app/lib/connectMongo";
+import User from "@/app/models/user";
 import bcrypt from 'bcrypt';
-import { authConfig } from '@/app/lib/auth.config'
+import { authConfig } from "@/app/lib/auth.config";
 
 export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
     ...authConfig,
@@ -22,19 +22,19 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                     if (!user) {
                         throw new Error("Invalid email, try again!");
                     }
-                    const isPassValid = await bcrypt.compare(credentials.password, user.password);
+                    const isPassValid = await bcrypt.compare(credentials.password as string, user.password);
                     if (!isPassValid) {
                         throw new Error("Invalid password, try again!");
                     }
                     return user;
-                } catch (error) {
+                } catch (error: any) {
                     throw new Error(error);
                 }
             }
         })
     ],
     callbacks: {
-        async signIn(user) {
+        async signIn(user: any) {
             if (user.account.provider === "google") {
                 try {
                     connectDB();
@@ -44,7 +44,7 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                         await newUser.save();
                     }
 
-                } catch (error) {
+                } catch (error: any) {
                     console.log(error);
                     return false;
                 }

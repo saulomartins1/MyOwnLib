@@ -4,19 +4,19 @@ export const authConfig = {
     // },
     providers: [],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }: { token: any, user: any }) {
             if (user) {
                 token.id = user.id;
             }
             return token;
         },
-        async session({ session, token }) {
+        async session({ session, token }: { session: any, token: any }) {
             if (token) {
                 session.user.id = token.id;
             }
             return session;
         },
-        authorized({ auth, request }) {
+        authorized({ auth, request }: { auth: any, request: any }) {
 
             const user = auth?.user;
 

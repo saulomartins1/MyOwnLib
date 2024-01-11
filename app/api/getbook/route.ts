@@ -6,7 +6,7 @@ export const POST = async (request: any) => {
     try {
 
         const findUser = await User.findById({ _id: userId });
-        if (!findUser) return new NextResponse("Usuário não encontrado!", { status: 400 });
+        if (!findUser) return new NextResponse("User not found!", { status: 400 });
 
         // Array com 2 objetos com id cada
         const userBooks: any = findUser.books.map((book: any) => book);

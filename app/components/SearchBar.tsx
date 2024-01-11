@@ -46,16 +46,13 @@ const SearchResult = ({ id, title, author, release, pages, pdfPath, coverUrl, sy
 
 export const SearchBar = () => {
     const [results, setResults] = React.useState<I_booksDB[] | []>([]);
-    const [resultsCount, setResultsCount] = React.useState(0);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const searchValue = e.currentTarget.value.toLowerCase();
         if (searchValue.length <= 0) return setResults([]);
-        setResultsCount(searchValue.length);
-        console.log(resultsCount)
 
-        const ValueMatch = booksDB
+        const ValueMatchResult = booksDB
             .map((book) => {
                 const titleScore = book.title.toLowerCase().includes(searchValue) ? 2 : 0;
                 const authorScore = book.author.toLowerCase().includes(searchValue) ? 1 : 0;
@@ -68,7 +65,7 @@ export const SearchBar = () => {
             .map((item) => item.book);
 
 
-        setResults(ValueMatch);
+        setResults(ValueMatchResult);
 
     }
 
@@ -83,7 +80,7 @@ export const SearchBar = () => {
                 <SearchBar_Grid />
             </div>
             <div className="bg-dark3 flex flex-col rounded-lg overflow-hidden w-[318px] max-h-[150px] overflow-y-auto">
-                {results.length > 0 && <p className="flex justify-end pr-2">{`${results.length} results found`}</p>}
+                {results.length > 0 && <p className="flex justify-end pr-2">{`${results.length > 1 ? `${results.length} results found` : `${results.length} result found`}`}</p>}
                 {results.length > 0 && results.map(({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB, index) =>
                     <SearchResult
                         key={index}
@@ -101,6 +98,5 @@ export const SearchBar = () => {
                 )}
             </div>
         </div>
-
     </>
 }

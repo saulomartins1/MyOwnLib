@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { I_booksDB } from '../data/books'
 import { IconBookPages } from './BookCard'
+import ButtonGetBook from './ButtonGetBook'
 import Button from './ui/Button'
 
 const IconMoreInfo = () => {
@@ -22,7 +23,11 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
     const [modalClass, setModalClass] = React.useState<'animate-login' | 'animate-logout'>('animate-login');
 
     const handleModal = (e: React.MouseEvent) => {
-        if (modal && (e.target === e.currentTarget || e.target instanceof HTMLButtonElement) && modalClass === 'animate-login') {
+
+        const closeModalButton = e.target instanceof HTMLButtonElement && e.target.innerText == "Go back";
+        const clickBgModal = e.target === e.currentTarget;
+
+        if (modal && clickBgModal || closeModalButton && modalClass === 'animate-login') {
 
             setModalClass('animate-logout');
 
@@ -58,7 +63,7 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
                     </div>
                 </div>
                 <div className='flex items-center gap-4 justify-center'>
-                    <Button>Get book</Button>
+                    <ButtonGetBook bookId={id} />
                     <Button type='secondary'>Go back</Button>
                 </div>
             </article>

@@ -14,7 +14,7 @@ function ButtonGetBook({ bookId }: { bookId?: number }) {
             if (status !== "authenticated") return router.push('/signin');
             const userId = session.user?.id;
 
-            const response = await fetch("https://my-own-lib-app.vercel.app/api/getbook", { //Relative paths problems, url must be absolute
+            const response = await fetch("/api/getbook", { //Relative paths problems, url must be absolute
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId, bookId })
