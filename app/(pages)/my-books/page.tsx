@@ -10,7 +10,7 @@ async function GetUserBooks() {
     const userId = user?.user?.id;
 
     try {
-        const response = await fetch("http://localhost:3000/api/userbooks", { //Relative paths problems, url must be absolute
+        const response = await fetch("https://my-own-lib-app.vercel.app/api/userbooks", { //Relative paths problems, url must be absolute
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId })
@@ -28,9 +28,7 @@ async function GetUserBooks() {
 }
 
 async function Home() {
-    console.log("=======================================")
     const userBooks = await GetUserBooks();
-    console.log(userBooks)
 
     return (
         <>
@@ -63,6 +61,7 @@ async function Home() {
                             }
                             return null;
                         })}
+                        {userBooks.length === 0 && <h1 className='font-bold'>You don't have any book, yet.</h1>}
                     </main>
                 </div>
             </div >
