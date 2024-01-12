@@ -2,10 +2,10 @@ import User from '@/app/models/user'
 import { NextResponse } from 'next/server';
 
 export const POST = async (request: any) => {
-    const { userId } = await request.json();
+    const { userEmail } = await request.json();
     try {
 
-        const findUser = await User.findById({ _id: userId });
+        const findUser = await User.findOne({ email: userEmail });
         if (!findUser) return new NextResponse("Usuário não encontrado!", { status: 400 });
 
         const userBooks: any = findUser.books.map((book: any) => book);

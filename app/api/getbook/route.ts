@@ -2,10 +2,11 @@ import User from '@/app/models/user'
 import { NextResponse } from 'next/server';
 
 export const POST = async (request: any) => {
-    const { userId, bookId } = await request.json();
-    try {
+    const { userEmail, bookId } = await request.json();
 
-        const findUser = await User.findById({ _id: userId });
+    try {
+        const findUser = await User.findOne({ email: userEmail });
+        console.log(findUser)
         if (!findUser) return new NextResponse("User not found!", { status: 400 });
 
         // Array com 2 objetos com id cada
@@ -24,7 +25,7 @@ export const POST = async (request: any) => {
         return new NextResponse("Book added into your library!", { status: 201 });
 
     } catch (error: any) {
-        console.log(error)
+        console.log(error.message)
         return new NextResponse("Internal error, try again later!", { status: 500 })
     }
 }

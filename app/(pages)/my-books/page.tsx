@@ -8,13 +8,13 @@ import baseUrl from '@/app/utils/baseUrl'
 
 async function GetUserBooks() {
     const user = await auth();
-    const userId = user?.user?.id;
+    const userEmail = user?.user?.email;
 
     try {
         const response = await fetch(`${baseUrl}/api/userbooks`, { //Relative paths problems, url must be absolute
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId })
+            body: JSON.stringify({ userEmail })
 
         })
 
