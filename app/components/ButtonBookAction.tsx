@@ -4,20 +4,19 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
-function ButtonGetBook({ bookId }: { bookId?: number }) {
+function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; }) {
     const { data: session, status } = useSession();
     const router = useRouter()
 
-    const handleSubmit = async () => {
-
+    const getBook = async () => {
         try {
             if (status !== "authenticated") return router.push('/signin');
-            const userId = session.user?.id;
+            const userEmail = session.user?.email;
 
             const response = await fetch("/api/getbook", { //Relative paths problems, url must be absolute
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, bookId })
+                body: JSON.stringify({ userEmail, bookId })
             })
 
             if (response.status !== 201) {
@@ -35,9 +34,19 @@ function ButtonGetBook({ bookId }: { bookId?: number }) {
         }
     }
 
-    return <form action={handleSubmit}>
-        <Button>Get Book</Button>
-    </form>
+    const readBook = async () => {
+        return console.log("Read")
+    }
+
+    if (text === "Read") {
+        return <form action={readBook}>
+            <Button>{text}</Button>
+        </form>
+    } else {
+        return <form action={getBook}>
+            <Button>Get Book</Button>
+        </form>
+    }
 }
 
-export default ButtonGetBook
+export default ButtonBookAction

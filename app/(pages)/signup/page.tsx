@@ -1,8 +1,8 @@
 import React from 'react'
 import NavLink from 'next/link'
 import { LogoSVG } from '@/app/assets/LogoMyOwnLib'
-import { handleGoogleSignIn } from '@/app/lib/actions'
-import SignUpForm from './components/SignUpForm'
+import SignUpForm from '@/app/(pages)/signup/components/SignUpForm'
+import { SignInWithGoogle } from '@/app/(pages)/signin/components/SignInWithGoogle'
 
 function SignUp() {
     return (
@@ -17,11 +17,7 @@ function SignUp() {
                     <span className='text-c100 text-14'>Create an account and enjoy us!</span>
                 </div>
                 <SignUpForm />
-                <form action={handleGoogleSignIn}>
-                    <button className='hover:bg-dark3 transition-colors p-4 rounded-full text-c100 font-bold text-14'>
-                        Sign Up with Google
-                    </button>
-                </form>
+                <SignInWithGoogle />
                 <p className='text-text2'>Already have an account? <NavLink className='text-text underline' href="/signin">Sign In</NavLink></p>
             </article>
         </main>
