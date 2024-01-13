@@ -3,10 +3,12 @@ import Button from '@/app/components/ui/Button'
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
+import BookViewer from './BookViewer';
 
 function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; }) {
     const { data: session, status } = useSession();
     const router = useRouter()
+    const [isReading, setIsReading] = React.useState(false);
 
     const getBook = async () => {
         try {
@@ -34,14 +36,37 @@ function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; })
         }
     }
 
+
+    React.useEffect(() => {
+        const keyDownHandler = (event: any) => {
+
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                if (isReading) setIsReading((prev) => !prev);
+            }
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, [isReading]);
+
+
     const readBook = async () => {
-        return console.log("Read")
+        // Desenvolver a lógica de ler um livro específico, na última página que o usuário parou
+        // Traquear o progresso de cada livro individualmente;
+        setIsReading((prev) => !prev);
+        return console.log("Read", bookId);
     }
 
     if (text === "Read") {
-        return <form action={readBook}>
-            <Button>{text}</Button>
-        </form>
+        return <>
+            <form action={readBook}>
+                <Button>{text}</Button>
+            </form>
+            {isReading && <BookViewer bookId={bookId as number} />}
+        </>
     } else {
         return <form action={getBook}>
             <Button>Get Book</Button>
