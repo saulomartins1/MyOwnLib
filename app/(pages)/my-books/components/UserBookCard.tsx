@@ -25,7 +25,7 @@ function UserBookCard({ id, title, author, release, pages, pagesRead, pdfPath, c
                 <div>
                     <BtnModalBookInfo id={id} title={title} pagesRead={pagesRead} author={author} release={release} pages={pages} pdfPath={pdfPath} coverUrl={coverUrl} synopsis={synopsis} genre={genre} rating={rating} />
                 </div>
-                <ButtonBookAction text='Read' bookId={id} />
+                <ButtonBookAction text='Read' bookId={id} title={title} author={author} pages={pages} pdfPath={pdfPath} />
             </div>
         </article>
     )

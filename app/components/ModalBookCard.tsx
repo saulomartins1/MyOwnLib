@@ -5,11 +5,13 @@ import { IconBookPages, IconMoreInfo, IconRating } from '../assets/svgIcons'
 import { I_booksDB_User } from '@/app/types'
 import ButtonBookAction from '@/app/components/ButtonBookAction'
 import Button from '@/app/components/ui/Button'
+import { usePathname } from 'next/navigation'
 
 
 export function BtnModalBookInfo({ id, children, title, author, release, pages, pagesRead, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB_User) {
     const [modal, setModal] = React.useState(false);
     const [modalClass, setModalClass] = React.useState<'animate-login' | 'animate-logout'>('animate-login');
+    const isOnHome = usePathname();
 
     const handleModal = (e: React.MouseEvent) => {
 
@@ -52,12 +54,13 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
                     </div>
                 </div>
                 <div className='flex items-center gap-4 justify-center'>
-                    {pagesRead !== undefined && pagesRead >= 0 ? <ButtonBookAction text='Read' bookId={id} /> : <ButtonBookAction bookId={id} />}
+                    {isOnHome === "/" ? <ButtonBookAction bookId={id} /> : <></>}
                     <Button type='secondary'>Go back</Button>
                 </div>
             </article>
         </div>
     }
+
     return (
         <>
             <button className='w-full' onClick={() => setModal((prev) => !prev)}>{children ?? <IconMoreInfo />}</button>

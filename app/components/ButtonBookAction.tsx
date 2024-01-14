@@ -3,12 +3,14 @@ import Button from '@/app/components/ui/Button'
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
-import BookViewer from './BookViewer';
+import { I_BookGetOrRead, I_UserBookReading } from '@/app/types';
+import BookViewer from '@/app/components/BookViewer';
 
-function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; }) {
+
+function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_BookGetOrRead) {
     const { data: session, status } = useSession();
     const router = useRouter()
-    const [isReading, setIsReading] = React.useState(false);
+    const [readingBookInfo, setReadingBookInfo] = React.useState<I_UserBookReading | null>(null);
 
     const getBook = async () => {
         try {
@@ -42,7 +44,7 @@ function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; })
 
             if (event.key === 'Escape') {
                 event.preventDefault();
-                if (isReading) setIsReading((prev) => !prev);
+                if (readingBookInfo) setReadingBookInfo(null);
             }
         };
 
@@ -50,14 +52,33 @@ function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; })
         return () => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, [isReading]);
+    }, [readingBookInfo]);
 
 
     const readBook = async () => {
-        // Desenvolver a lógica de ler um livro específico, na última página que o usuário parou
-        // Traquear o progresso de cada livro individualmente;
-        setIsReading((prev) => !prev);
-        return console.log("Read", bookId);
+        try {
+            if (status !== "authenticated") return router.push('/signin');
+            const userEmail = session.user?.email;
+
+            const response = await fetch("/api/readbook", { //Relative paths problems, url must be absolute
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userEmail, bookId })
+            })
+
+            if (response.status !== 200) {
+                const error = await response.text();
+                return alert(error);
+            }
+            const dataBook = await response.json();
+            if (!dataBook) return;
+
+            setReadingBookInfo({ ...dataBook, title, author, pages, pdfPath });
+            return true;
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     if (text === "Read") {
@@ -65,7 +86,7 @@ function ButtonBookAction({ bookId, text }: { bookId?: number, text?: string; })
             <form action={readBook}>
                 <Button>{text}</Button>
             </form>
-            {isReading && <BookViewer bookId={bookId as number} />}
+            {readingBookInfo && <BookViewer readingBookInfo={readingBookInfo} setReadingBookInfo={setReadingBookInfo} />}
         </>
     } else {
         return <form action={getBook}>
