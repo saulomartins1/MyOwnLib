@@ -29,7 +29,7 @@ export const booksDB = [
         title: "1984",
         author: "George Orwell",
         release: "1949",
-        pages: 328,
+        pages: 348,
         pdfPath: "/pdfs/1984.pdf",
         coverUrl: "/pdfs/1984.jpg",
         synopsis: "A dystopian novel depicting a totalitarian society where the government controls every aspect of life, including truth and thought.",

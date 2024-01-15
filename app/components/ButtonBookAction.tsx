@@ -86,7 +86,7 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
             <form action={readBook}>
                 <Button>{text}</Button>
             </form>
-            {readingBookInfo && <BookViewer readingBookInfo={readingBookInfo} setReadingBookInfo={setReadingBookInfo} />}
+            {readingBookInfo && <BookViewer readingBookInfo={readingBookInfo} />}
         </>
     } else {
         return <form action={getBook}>
