@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { I_UserBookReading } from "@/app/types";
-import { useDebounce } from '../utils/debounce';
+import { useDebounce } from '@/app/hooks/useDebounce';
 import { useSession } from 'next-auth/react';
 
 import { pdfjs, Document, Page } from 'react-pdf';

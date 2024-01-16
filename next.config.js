@@ -5,6 +5,9 @@ const nextConfig = {
 
         return config;
     },
+    images: {
+        remotePatterns: [{ hostname: 'lh3.googleusercontent.com', }],
+    },
 }
 
 module.exports = nextConfig

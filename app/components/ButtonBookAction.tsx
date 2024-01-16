@@ -5,12 +5,28 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import { I_BookGetOrRead, I_UserBookReading } from '@/app/types';
 import BookViewer from '@/app/components/BookViewer';
+import { IconDelete } from '../assets/svgIcons';
 
 
 function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_BookGetOrRead) {
     const { data: session, status } = useSession();
     const router = useRouter()
     const [readingBookInfo, setReadingBookInfo] = React.useState<I_UserBookReading | null>(null);
+
+    React.useEffect(() => {
+        const keyDownHandler = (event: any) => {
+
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                if (readingBookInfo) setReadingBookInfo(null);
+            }
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+        return () => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, [readingBookInfo]);
 
     const getBook = async () => {
         try {
@@ -38,22 +54,31 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
         }
     }
 
+    const removeBook = async () => {
+        try {
+            if (status !== "authenticated") return router.push('/signin');
+            const userEmail = session.user?.email;
 
-    React.useEffect(() => {
-        const keyDownHandler = (event: any) => {
+            const response = await fetch("/api/removebook", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userEmail, bookId })
+            })
 
-            if (event.key === 'Escape') {
-                event.preventDefault();
-                if (readingBookInfo) setReadingBookInfo(null);
+            if (response.status !== 201) {
+                const error = await response.text();
+                return alert(error);
             }
-        };
 
-        document.addEventListener('keydown', keyDownHandler);
-        return () => {
-            document.removeEventListener('keydown', keyDownHandler);
-        };
-    }, [readingBookInfo]);
+            const addedMsg = await response.text();
+            router.refresh();
+            return alert(addedMsg);
 
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const readBook = async () => {
         try {
@@ -88,7 +113,16 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
             </form>
             {readingBookInfo && <BookViewer readingBookInfo={readingBookInfo} />}
         </>
-    } else {
+    } else if (text === "Remove") {
+        return <>
+            <form action={removeBook}>
+                <Button type="negative">
+                    <IconDelete />
+                </Button>
+            </form>
+        </>
+    }
+    else {
         return <form action={getBook}>
             <Button>Get Book</Button>
         </form>

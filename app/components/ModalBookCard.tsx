@@ -5,13 +5,11 @@ import { IconBookPages, IconMoreInfo, IconRating } from '../assets/svgIcons'
 import { I_booksDB_User } from '@/app/types'
 import ButtonBookAction from '@/app/components/ButtonBookAction'
 import Button from '@/app/components/ui/Button'
-import { usePathname } from 'next/navigation'
 
 
 export function BtnModalBookInfo({ id, children, title, author, release, pages, pagesRead, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB_User) {
     const [modal, setModal] = React.useState(false);
     const [modalClass, setModalClass] = React.useState<'animate-login' | 'animate-logout'>('animate-login');
-    const isOnHome = usePathname();
 
     const handleModal = (e: React.MouseEvent) => {
 
@@ -37,7 +35,10 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
                         <Image className='object-fill h-full' src={coverUrl} width="110" height="146" alt="Cover of {booksName}" />
                     </div>
                     <div className='flex flex-col py-1'>
-                        <h2 className='font-bold text-24'>{title}</h2>
+                        <div className='flex items-center justify-between'>
+                            <h2 className='font-bold text-24'>{title}</h2>
+                            {pagesRead && pagesRead >= 1 && <ButtonBookAction text='Remove' bookId={id} />}
+                        </div>
                         <p className='text-c100 text-14 mt-1'>{author}</p>
                         <div className='flex flex-wrap gap-2 mt-4'>
                             <span className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'>{release}</span>
@@ -54,7 +55,7 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
                     </div>
                 </div>
                 <div className='flex items-center gap-4 justify-center'>
-                    {isOnHome === "/" ? <ButtonBookAction bookId={id} /> : <></>}
+                    {pagesRead && pagesRead >= 1 ? <></> : <ButtonBookAction bookId={id} />}
                     <Button type='secondary'>Go back</Button>
                 </div>
             </article>
