@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
     id: { type: Number, required: true },
-    pagesRead: { type: Number, default: 0 }
+    pagesRead: { type: Number, default: 1 }
 });
 
 const userSchema = new mongoose.Schema({

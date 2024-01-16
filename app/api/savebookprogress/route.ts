@@ -3,7 +3,7 @@ import User from '@/app/models/user'
 import { NextResponse } from 'next/server';
 
 export const POST = async (request: any) => {
-    const { userEmail, bookId } = await request.json();
+    const { userEmail, bookId, saveCurrentPage } = await request.json();
 
     try {
         await connectDB();
@@ -11,17 +11,16 @@ export const POST = async (request: any) => {
         const findUser = await User.findOne({ email: userEmail });
         if (!findUser) return new NextResponse("User not found!", { status: 400 });
 
-        const userBooks: any = findUser.books.map((book: any) => book);
+        const userBookProgress: any = await findUser.books.filter((book: any) => book.id === bookId);
+        if (!findUser) return new NextResponse("Book not found!", { status: 409 });
 
-        const userHas: any = userBooks.filter((book: any) => book.id === bookId);
-
-        if (userHas.length) {
-            return new NextResponse("You already have this book!", { status: 409 });
+        if (saveCurrentPage) {
+            JSON.stringify(userBookProgress[0].pagesRead = saveCurrentPage);
         }
 
-        findUser.books.push({ id: bookId, pagesRead: 0 });
         await findUser.save();
-        return new NextResponse("Book added into your library!", { status: 201 });
+
+        return new NextResponse("Progress successfully save!", { status: 201 });
 
     } catch (error: any) {
         console.log(error.message)

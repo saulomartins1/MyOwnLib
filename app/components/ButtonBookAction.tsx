@@ -17,7 +17,7 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
             if (status !== "authenticated") return router.push('/signin');
             const userEmail = session.user?.email;
 
-            const response = await fetch("/api/getbook", { //Relative paths problems, url must be absolute
+            const response = await fetch("/api/getbook", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userEmail, bookId })
@@ -60,7 +60,7 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
             if (status !== "authenticated") return router.push('/signin');
             const userEmail = session.user?.email;
 
-            const response = await fetch("/api/readbook", { //Relative paths problems, url must be absolute
+            const response = await fetch("/api/readbook", {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userEmail, bookId })

@@ -2,6 +2,8 @@
 
 import React from 'react'
 import { I_UserBookReading } from "@/app/types";
+import { useDebounce } from '../utils/debounce';
+import { useSession } from 'next-auth/react';
 
 import { pdfjs, Document, Page } from 'react-pdf';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -13,16 +15,40 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 const BookViewer = ({ readingBookInfo }: { readingBookInfo: I_UserBookReading }) => {
-    const { title, author, pages, id, pagesRead, pdfPath } = readingBookInfo;
+    const { pages, id: bookId, pagesRead, pdfPath } = readingBookInfo;
     const [scale, setScale] = React.useState(1);
     const [page, setPage] = React.useState(pagesRead);
+    const saveCurrentPage = useDebounce(page, 500);
+    const { data: session, status } = useSession();
 
     React.useEffect(() => {
-        const handleCurrentPage = () => {
-            return console.log("Changed")
+        if (saveCurrentPage) {
+            saveBookProgress();
         }
-        handleCurrentPage();
-    }, [page])
+    }, [saveCurrentPage])
+
+    const saveBookProgress = async () => {
+        try {
+            if (status !== "authenticated") return;
+            const userEmail = session.user?.email;
+
+            const response = await fetch("/api/savebookprogress", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userEmail, bookId, saveCurrentPage })
+            })
+
+            if (response.status !== 201) {
+                const error = await response.text();
+                return alert(error);
+            }
+
+            return true;
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return <div className="bg-[black]/90 justify-center flex items-center h-screen w-full absolute inset-0">
         {/* container */}
