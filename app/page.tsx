@@ -6,7 +6,7 @@ import { booksDB } from '@/app/data/books'
 
 
 
-async function Home() {
+function Home() {
 
    return (
       <>

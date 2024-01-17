@@ -10,8 +10,8 @@ function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, synops
     return (
         <article className='flex flex-col justify-between bg-dark2 p-4 w-[232px] h-[180px] rounded-lg border-[1px] border-borders'>
             <div className='flex items-center gap-3'>
-                <div className='flex-shrink-0 w-12 h-16 bg-dark1 border-borders border-[1px] rounded-md overflow-hidden'>
-                    <Image className='object-fill h-full' src={coverUrl} width="48" height="64" alt="Cover of {booksName}" />
+                <div className='skeletonImg flex-shrink-0 w-12 h-16 bg-dark1 border-borders border-[1px] rounded-md overflow-hidden'>
+                    <Image className='z-[1] object-fill h-full' src={coverUrl} width="48" height="64" alt={`Cover of ${title} by ${author}`} />
                 </div>
                 <div className='flex flex-col py-1 truncate'>
                     <h2 className='font-bold text-14 truncate'>{title}</h2>

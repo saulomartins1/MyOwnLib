@@ -103,3 +103,41 @@ h4 {
 p {
     line-height: 160%;
 }
+
+
+
+.isLoading {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--c700);
+    border-top: 3px solid transparent;
+    animation: isLoading 1s linear infinite;
+}
+
+@keyframes isLoading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.skeletonImg {
+    background-image: linear-gradient(90deg, var(--dark3) 0px, var(--dark1) 50%, var(--dark3) 100%);
+    background-size: 200%;
+    animation: skeletonImg 1s infinite linear;
+}
+
+@keyframes skeletonImg {
+    from {
+        background-position: 0px;
+    }
+
+    to {
+        background-position: -200%;
+    }
+}
