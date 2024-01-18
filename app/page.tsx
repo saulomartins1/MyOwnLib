@@ -3,6 +3,7 @@ import BookCard from './components/BookCard'
 import SideNav from './components/SideNav'
 import { SearchBar } from './components/SearchBar'
 import { booksDB } from '@/app/data/books'
+import { SkeletonBookCard } from './components/ui/SkeletonBookCard'
 
 
 
@@ -20,19 +21,20 @@ function Home() {
                </header>
                <main className='flex flex-wrap gap-4 py-4 pb-[100px] overflow-y-auto max-h-screen'>
                   {booksDB.map((book) => {
-                     return <BookCard
-                        key={book.id}
-                        id={book.id}
-                        title={book.title}
-                        author={book.author}
-                        release={book.release}
-                        pages={book.pages}
-                        pdfPath={book.pdfPath}
-                        coverUrl={book.coverUrl}
-                        synopsis={book.synopsis}
-                        genre={book.genre}
-                        rating={book.rating}
-                     />
+                     return <React.Suspense key={book.id} fallback={<SkeletonBookCard />}>
+                        <BookCard
+                           id={book.id}
+                           title={book.title}
+                           author={book.author}
+                           release={book.release}
+                           pages={book.pages}
+                           pdfPath={book.pdfPath}
+                           coverUrl={book.coverUrl}
+                           synopsis={book.synopsis}
+                           genre={book.genre}
+                           rating={book.rating}
+                        />
+                     </React.Suspense>
                   })}
                </main>
             </div>

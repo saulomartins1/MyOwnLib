@@ -5,6 +5,7 @@ import { IconSearchBar, SearchBar_Filter, SearchBar_Grid } from "../assets/svgIc
 import { booksDB } from "@/app/data/books"
 import { I_booksDB } from "@/app/types"
 import BtnModalBookInfo from "@/app/components/ModalBookCard"
+import { useDebounce } from "../hooks/useDebounce"
 
 const SearchResult = ({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB) => {
 
@@ -27,6 +28,7 @@ const SearchResult = ({ id, title, author, release, pages, pdfPath, coverUrl, sy
 
 export const SearchBar = () => {
     const [results, setResults] = React.useState<I_booksDB[] | []>([]);
+    const resultsDebounced = useDebounce(results, 500);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -56,27 +58,40 @@ export const SearchBar = () => {
                 <span className='absolute text-text_opacity left-5 top-[50%] -translate-y-[50%]' >
                     <IconSearchBar />
                 </span>
-                <input onChange={(e) => handleSearch(e)} type='text' placeholder='Search for a book...' name="searchBook" className='pl-[60px] placeholder:text-text_opacity bg-borders px-9 py-3 rounded-full outline-none borderCard' autoComplete='off' />
+                <input onChange={(e) => handleSearch(e)}
+                    className='pl-[60px] placeholder:text-text_opacity bg-borders px-9 py-3 rounded-full outline-none borderCard'
+                    type='text'
+                    placeholder='Search for a book...'
+                    name="searchBook"
+                    autoComplete='off'
+                />
                 <SearchBar_Filter />
                 <SearchBar_Grid />
             </div>
             <div className="bg-dark3 flex flex-col rounded-lg overflow-hidden w-[318px] max-h-[150px] overflow-y-auto">
-                {results.length > 0 && <p className="flex justify-end pr-2">{`${results.length > 1 ? `${results.length} results found` : `${results.length} result found`}`}</p>}
-                {results.length > 0 && results.map(({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB, index) =>
-                    <SearchResult
-                        key={index}
-                        id={id}
-                        coverUrl={coverUrl}
-                        title={title}
-                        author={author}
-                        release={release}
-                        pages={pages}
-                        pdfPath={pdfPath}
-                        synopsis={synopsis}
-                        genre={genre}
-                        rating={rating}
-                    />
-                )}
+
+                {resultsDebounced.length > 0 && <p className="flex justify-end pr-2">{`${resultsDebounced.length > 1 ?
+                    `${resultsDebounced.length} results found`
+                    :
+                    `${resultsDebounced.length} result found`}`}
+                </p>}
+
+                {resultsDebounced.length > 0 &&
+                    resultsDebounced.map(({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB, index: number) =>
+                        <SearchResult
+                            key={index}
+                            id={id}
+                            coverUrl={coverUrl}
+                            title={title}
+                            author={author}
+                            release={release}
+                            pages={pages}
+                            pdfPath={pdfPath}
+                            synopsis={synopsis}
+                            genre={genre}
+                            rating={rating}
+                        />
+                    )}
             </div>
         </div>
     </>

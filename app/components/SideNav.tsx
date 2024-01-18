@@ -7,6 +7,7 @@ import Image from 'next/image';
 
 async function SideNav() {
     const session = await auth();
+    const emailToUsername = session?.user?.email?.split("@")[0];
 
     return (
         <aside className='flex-shrink-0 bg-dark2 w-[256px] flex flex-col border-r-[1px] border-borders'>
@@ -25,10 +26,10 @@ async function SideNav() {
                                 :
                                 <div className='flex justify-center items-center text-text2 w-12 h-12 bg-dark1 rounded-full'><IconAccount /></div>
                             }
-                            <span className="truncate">{session?.user.email?.split("@")[0]}</span>
+                            <span className="truncate" title={emailToUsername}>{emailToUsername}</span>
                         </div>
                         <form action={handleSignOut} className="inline">
-                            <button className='hover:bg-dark1 transition-colors p-4 rounded-full text-c100 font-bold text-14'>
+                            <button className='hover:bg-dark1 transition-colors p-4 rounded-full text-c100 font-bold text-14' title="Sign Out">
                                 <IconLogOut />
                             </button>
                         </form>
@@ -40,7 +41,7 @@ async function SideNav() {
                 <NavLink className="flex gap-3 items-center p-6 hover:bg-dark1 font-bold" href='/'><IconHome />Home</NavLink>
                 <NavLink className="flex gap-3 items-center p-6 hover:bg-dark1 font-bold" href='/my-books'><IconHome />My books</NavLink>
             </nav>
-        </aside >
+        </aside>
     )
 }
 

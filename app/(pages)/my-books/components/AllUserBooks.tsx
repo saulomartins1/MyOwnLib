@@ -4,7 +4,7 @@ import { booksDB } from '@/app/data/books'
 import { auth } from '@/app/lib/auth'
 import baseUrl from '@/app/utils/baseUrl'
 
-async function GetUserBooks() {
+export async function GetUserBooks() {
     const user = await auth();
     const userEmail = user?.user?.email;
 
@@ -26,6 +26,7 @@ async function GetUserBooks() {
 }
 
 export const AllUserBooks = async () => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
     const userBooks = await GetUserBooks();
 
     return <>

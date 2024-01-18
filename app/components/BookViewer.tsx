@@ -4,6 +4,7 @@ import React from 'react'
 import { I_UserBookReading } from "@/app/types";
 import { useDebounce } from '@/app/hooks/useDebounce';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 import { pdfjs, Document, Page } from 'react-pdf';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -14,12 +15,13 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url,
 ).toString();
 
-const BookViewer = ({ readingBookInfo }: { readingBookInfo: I_UserBookReading }) => {
+const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: I_UserBookReading, setReadingBookInfo: any }) => {
     const { pages, id: bookId, pagesRead, pdfPath } = readingBookInfo;
     const [scale, setScale] = React.useState(1);
     const [page, setPage] = React.useState(pagesRead);
     const saveCurrentPage = useDebounce(page, 500);
     const { data: session, status } = useSession();
+    const router = useRouter();
 
     React.useEffect(() => {
         if (saveCurrentPage) {
@@ -50,9 +52,9 @@ const BookViewer = ({ readingBookInfo }: { readingBookInfo: I_UserBookReading })
         }
     }
 
-    return <div className="bg-[black]/90 justify-center flex items-center h-screen w-full absolute inset-0">
+    return <div className="bg-[black]/[96%] justify-center flex items-center h-screen w-full absolute inset-0">
         {/* container */}
-        <article className="bg-dark2 flex justify-center gap-4 w-[990px] mx-auto rounded-md borderCard p-8">
+        <article className="bg-dark2 flex justify-center gap-4 w-[990px] mx-auto rounded-md borderCard p-4">
 
             {/* PDFViewer */}
             <div className="bg-[#e6e2c4] flex flex-1 justify-center rounded-sm min-w-[400px] max-w-[990px] h-[660px] overflow-y-auto">
@@ -82,8 +84,7 @@ const BookViewer = ({ readingBookInfo }: { readingBookInfo: I_UserBookReading })
                     <div className="flex items-center gap-3">
                         <button
                             className="hover:bg-borders w-[48px] h-[48px] bg-dark3 borderCard rounded-full text-24 font-bold"
-                            // onClick={() => setScale((prev) => prev <= 1.1 ? 1 : prev - .2)}
-                            onClick={() => setScale((prev) => prev <= .4 ? 1 : prev - .2)}
+                            onClick={() => setScale((prev) => prev <= .5 ? .5 : prev - .2)}
                         >{"-"}
                         </button>
                         <button
@@ -110,6 +111,14 @@ const BookViewer = ({ readingBookInfo }: { readingBookInfo: I_UserBookReading })
                         >
                             {"->"}</button>
                     </div>
+
+                    {/* Leave */}
+                    <button
+                        className="flex items-center hover:bg-borders mt-8 h-[48px] bg-dark3 borderCard rounded-full px-4 font-bold text-16 gap-3"
+                        onClick={() => { setReadingBookInfo(null), router.refresh() }}
+                    >{"<-"} return
+                    </button>
+
                 </div>
 
             </div>

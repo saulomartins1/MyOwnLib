@@ -18,7 +18,10 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
 
             if (event.key === 'Escape') {
                 event.preventDefault();
-                if (readingBookInfo) setReadingBookInfo(null);
+                if (readingBookInfo) {
+                    setReadingBookInfo(null);
+                    router.refresh();
+                }
             }
         };
 
@@ -111,7 +114,7 @@ function ButtonBookAction({ bookId, text, title, author, pages, pdfPath }: I_Boo
             <form action={readBook}>
                 <Button>{text}</Button>
             </form>
-            {readingBookInfo && <BookViewer readingBookInfo={readingBookInfo} />}
+            {readingBookInfo && <BookViewer readingBookInfo={readingBookInfo} setReadingBookInfo={setReadingBookInfo} />}
         </>
     } else if (text === "Remove") {
         return <>

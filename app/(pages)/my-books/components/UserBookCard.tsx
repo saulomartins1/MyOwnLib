@@ -14,7 +14,7 @@ function UserBookCard({ id, title, author, release, pages, pagesRead, pdfPath, c
                     <Image className='z-[1] object-fill h-full' src={coverUrl} width="48" height="64" alt={`Cover of ${title} by ${author}`} />
                 </div>
                 <div className='flex flex-col py-1 truncate'>
-                    <h2 className='font-bold text-14 truncate'>{title}</h2>
+                    <h2 className='font-bold text-14 truncate' title={title}>{title}</h2>
                     <p className='text-c100 text-12'>{author}</p>
                     <div className='flex flex-wrap gap-1'>
                         <span className=' mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'><IconBookPages />{pagesRead}/{pages}</span>

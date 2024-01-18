@@ -2,7 +2,7 @@ import React from 'react'
 import SideNav from '@/app/components/SideNav'
 import { SearchBar } from '@/app/components/SearchBar'
 import AllUserBooks from '@/app/(pages)/my-books/components/AllUserBooks'
-import { Loading } from '@/app/components/ui/Loading'
+import { SkeletonBookCard } from '@/app/components/ui/SkeletonBookCard'
 
 function Home() {
     return (
@@ -16,7 +16,7 @@ function Home() {
                         </nav>
                     </header>
                     <main className='flex flex-wrap gap-4 py-4 pb-[100px] overflow-y-auto max-h-screen'>
-                        <React.Suspense fallback={<Loading />}>
+                        <React.Suspense fallback={<SkeletonBookCard />}>
                             <AllUserBooks />
                         </React.Suspense>
                     </main>
