@@ -103,12 +103,12 @@ const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: 
                     </div>
                     <div className="flex items-center gap-3">
                         <button
-                            className="hover:bg-borders w-[48px] h-[48px] bg-dark3 borderCard rounded-full text-24 font-bold"
+                            className="hover:bg-borders w-[48px] h-[48px] bg-dark1 borderCard rounded-full text-24 font-bold"
                             onClick={() => setScale((prev) => prev <= 1.1 ? 1 : prev - .2)}
                         >{"-"}
                         </button>
                         <button
-                            className="hover:bg-borders w-[48px] h-[48px] bg-dark3 borderCard rounded-full text-24 font-bold"
+                            className="hover:bg-borders w-[48px] h-[48px] bg-dark1 borderCard rounded-full text-24 font-bold"
                             onClick={() => setScale((prev) => prev >= 1.9 ? 2 : prev + .2)}
                         >{"+"}</button>
                     </div>
@@ -121,12 +121,12 @@ const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: 
                     </div>
                     <div className="flex items-center gap-3">
                         <button
-                            className="hover:bg-borders w-[48px] h-[48px] bg-dark3 borderCard rounded-full font-bold text-20"
+                            className="hover:bg-borders w-[48px] h-[48px] bg-dark1 borderCard rounded-full font-bold text-20"
                             onClick={() => setPage((prev) => prev === 1 ? prev : prev - 1)}
                         >
                             {"<-"}</button>
                         <button
-                            className="hover:bg-borders w-[48px] h-[48px] bg-dark3 borderCard rounded-full font-bold text-20"
+                            className="hover:bg-borders w-[48px] h-[48px] bg-dark1 borderCard rounded-full font-bold text-20"
                             onClick={() => setPage((prev) => prev === pages ? pages : prev + 1)}
                         >
                             {"->"}</button>
@@ -134,9 +134,9 @@ const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: 
 
                     {/* Leave */}
                     <button
-                        className="flex items-center hover:bg-borders mt-8 h-[48px] bg-dark3 borderCard rounded-full px-4 font-bold text-16 gap-3"
+                        className="flex items-center hover:bg-borders mt-8 h-[48px] bg-dark1 borderCard rounded-full px-4 font-bold text-16 gap-3"
                         onClick={() => { setReadingBookInfo(null), router.refresh() }}
-                    >{"<-"} return
+                    >Go back
                     </button>
 
                 </div>

@@ -41,8 +41,8 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
                         </div>
                         <p className='text-c100 text-14 mt-1'>{author}</p>
                         <div className='flex flex-wrap gap-2 mt-4'>
-                            <span className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'>{release}</span>
-                            <span className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'><IconBookPages />{pages} pages</span>
+                            <span title={`Release date`} className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'>{release}</span>
+                            <span title={`Total pages`} className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'><IconBookPages />{pages} pages</span>
                             <span className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'><IconRating />{rating}</span>
                             <span className='mt-1 flex items-center gap-2 bg-dark2 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-14 text-text2'>{genre}</span>
                         </div>
@@ -64,7 +64,7 @@ export function BtnModalBookInfo({ id, children, title, author, release, pages, 
 
     return (
         <>
-            <button className='w-full' onClick={() => setModal((prev) => !prev)}>{children ?? <IconMoreInfo />}</button>
+            <button title={`More info about ${title}`} className='w-full' onClick={() => setModal((prev) => !prev)}>{children ?? <IconMoreInfo />}</button>
             {modal && <ModalBookCard />}
         </>
     )

@@ -9,7 +9,9 @@ import { GetUserBooks } from '@/app/(pages)/my-books/components/AllUserBooks'
 
 async function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, synopsis, genre, rating }: I_booksDB) {
     const userBooks = await GetUserBooks();
-    const hasThisBook = userBooks.some((b: any) => id === b.id);
+    let hasThisBook;
+
+    if (userBooks) hasThisBook = userBooks.some((b: any) => id === b.id);
 
     return (
         <article className='flex flex-col justify-between bg-dark2 p-4 w-[232px] h-[180px] rounded-lg border-[1px] border-borders'>
@@ -21,8 +23,8 @@ async function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, 
                     <h2 className='font-bold text-14 truncate' title={title}>{title}</h2>
                     <p className='text-c100 text-12'>{author}</p>
                     <div className='flex gap-1'>
-                        <span className='mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'>{release}</span>
-                        <span className=' mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'><IconBookPages />{pages}</span>
+                        <span title={`Release date`} className='mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'>{release}</span>
+                        <span title={`Total pages`} className=' mt-1 flex gap-2 bg-dark3 rounded-md border-[1px] border-borders px-1 py-[.5px] max-w-max text-12 text-text2'><IconBookPages />{pages}</span>
                     </div>
                 </div>
             </div>
@@ -33,7 +35,7 @@ async function BookCard({ id, title, author, release, pages, pdfPath, coverUrl, 
                 {!hasThisBook ?
                     <ButtonBookAction bookId={id} />
                     :
-                    <p>Already have</p>
+                    <p>Acquired</p>
                 }
             </div>
         </article>
