@@ -15,6 +15,24 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url,
 ).toString();
 
+
+
+const userScale = (scale: number, setScale: React.Dispatch<React.SetStateAction<number>>) => {
+    React.useEffect(() => {
+        const storedZoom = localStorage.getItem("zoom");
+        if (!storedZoom || storedZoom === "1") {
+            localStorage.setItem("zoom", "1");
+        } else {
+            setScale(+storedZoom);
+        }
+    }, []);
+
+    React.useEffect(() => {
+        localStorage.setItem("zoom", scale.toString());
+    }, [scale]);
+}
+
+
 const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: I_UserBookReading, setReadingBookInfo: any }) => {
     const { pages, id: bookId, pagesRead, pdfPath } = readingBookInfo;
     const [scale, setScale] = React.useState(1);
@@ -22,6 +40,8 @@ const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: 
     const saveCurrentPage = useDebounce(page, 500);
     const { data: session, status } = useSession();
     const router = useRouter();
+
+    userScale(scale, setScale);
 
     React.useEffect(() => {
         if (saveCurrentPage) {
@@ -84,7 +104,7 @@ const BookViewer = ({ readingBookInfo, setReadingBookInfo }: { readingBookInfo: 
                     <div className="flex items-center gap-3">
                         <button
                             className="hover:bg-borders w-[48px] h-[48px] bg-dark3 borderCard rounded-full text-24 font-bold"
-                            onClick={() => setScale((prev) => prev <= .5 ? .5 : prev - .2)}
+                            onClick={() => setScale((prev) => prev <= 1.1 ? 1 : prev - .2)}
                         >{"-"}
                         </button>
                         <button
