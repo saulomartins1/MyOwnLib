@@ -14,7 +14,7 @@ function SignIn() {
                         <LogoSVG />
                     </NavLink>
                     <h1 className='text-24 font-bold mt-5'>MyOwnLib</h1>
-                    <span className='text-c100 text-14'>More than 19 free-read books</span>
+                    <span className='text-c100 text-14'>More than ** free-to-read books</span>
                 </div>
                 <SignInForm />
                 <SignInWithGoogle />
